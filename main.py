@@ -66,7 +66,7 @@ use_cuda = torch.cuda.is_available()
 ''' Send model and data for training '''
 
 train_epoch = training.Train(model, optimizer, train, data.w2i, args.K, args.N, nwords, input_rep)
-train_epoch.train_model(1)
+train_epoch.train_model(args.epoch)
 
 ''' Write output '''
 if args.write_emb and args.write_words:

@@ -26,7 +26,7 @@ class Train:
                 neg_words = np.random.choice(self.nwords, size=self.K, replace=True)
 
                 context_words = padded_sent[i-self.N:i] + padded_sent[i + 1:i + self.N + 1]
-                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(0)
+                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(1)
 
                 target_word = padded_sent[i]
         #         neg_words = all_neg_words[(i-N)*K:(i-N+1)*K]
