@@ -3,15 +3,16 @@ import pandas as pd
 import numpy as np
 
 ## Function to split document passages into sentence
-caps = "([A-Z])"
-prefixes = "(Mr|St|Mrs|Ms|Dr)[.]"
-suffixes = "(Inc|Ltd|Jr|Sr|Co)"
-starters = "(Mr|Mrs|Ms|Dr|He\s|She\s|It\s|They\s|Their\s|Our\s|We\s|But\s|However\s|That\s|This\s|Wherever)"
-acronyms = "([A-Z][.][A-Z][.](?:[A-Z][.])?)"
-websites = "[.](com|net|org|io|gov)"
-digits = "([0-9])"
 
 def split_into_sentences(text):
+    caps = "([A-Z])"
+    prefixes = "(Mr|St|Mrs|Ms|Dr)[.]"
+    suffixes = "(Inc|Ltd|Jr|Sr|Co)"
+    starters = "(Mr|Mrs|Ms|Dr|He\s|She\s|It\s|They\s|Their\s|Our\s|We\s|But\s|However\s|That\s|This\s|Wherever)"
+    acronyms = "([A-Z][.][A-Z][.](?:[A-Z][.])?)"
+    websites = "[.](com|net|org|io|gov)"
+    digits = "([0-9])"
+
     text = " " + text + "  "
     text = text.replace("\n"," ")
     text = re.sub(prefixes,"\\1<prd>",text)
@@ -104,7 +105,7 @@ def normalise(weights):
     return normW
 
 ## Function to find query expansion terms to a given query/text
-def expandQuery(question, U, terms):
+def expandQuery(question, U, terms, wordList):
     # qText='unemployment'
     qText = prepare_question_text(question)
     filtered_text = removeStopWords(qText)
