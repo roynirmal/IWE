@@ -89,7 +89,7 @@ def prepare_question_text(question_text):
     
 
 ## Function to remove stop words from a text
-def removeStopWords(questionText):
+def removeStopWords(questionText, stop):
     return [w for w in questionText.split()  if not w in stop]
 
 ## Function which returns an array with 1 if a question word is present in the vocabulary and 0 otherwise
@@ -105,10 +105,10 @@ def normalise(weights):
     return normW
 
 ## Function to find query expansion terms to a given query/text
-def expandQuery(question, U, terms, wordList):
+def expandQuery(question, U, terms, wordList, stop):
     # qText='unemployment'
     qText = prepare_question_text(question)
-    filtered_text = removeStopWords(qText)
+    filtered_text = removeStopWords(qText, stop)
     q = binaryEncoding(wordList, filtered_text)
 
     tmp = np.matmul(U.T,q)
