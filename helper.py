@@ -54,6 +54,37 @@ def split_into_sentences(text):
     sentences = [s.strip() for s in sentences]
     return sentences
 
+
+
+
+def prepare_question_text(question_text):
+    question_text = question_text.replace('?','') #remove ?
+    question_text = question_text.replace("'",'')
+    question_text = question_text.replace('"','')
+    question_text = question_text.replace('-',' ')
+    question_text = question_text.replace('(','')
+    question_text = question_text.replace(')','')
+    question_text = question_text.replace(',','')
+    question_text = question_text.replace('.','')
+    question_text = question_text.replace('&',' and ')
+    question_text = question_text.replace(':','')
+    question_text = question_text.replace('>','')#error in dataset
+
+    # if "[" in question_text:
+    #     #print q_id,question_text
+    #     if q_id == "3340": #remove contents
+    #         question_text = re.sub(r'\[[^\(]*?\]', r'', question_text)
+    #     else: #keep contents
+    #         question_text = re.sub(r'\[(?:[^\]|]*\|)?([^\]|]*)\]', r'\1', question_text)
+    # if "/" in question_text:
+    #     #print q_id,question_text
+    #     if q_id == "104" or q_id == "857":
+    #         question_text = question_text.replace('/','')
+    #     else:
+    #         question_text = question_text.replace('/',' or ')
+
+    return question_text.lower()
+
     
 
 ## Function to remove stop words from a text
@@ -73,15 +104,17 @@ def normalise(weights):
     return normW
 
 ## Function to find query expansion terms to a given query/text
-def expandQuery(qText):
+def expandQuery(question, U, terms):
     # qText='unemployment'
+    qText = prepare_question_text(question)
     filtered_text = removeStopWords(qText)
     q = binaryEncoding(wordList, filtered_text)
+
     # # candidate = UU'q
     tmp = np.matmul(U.T,q)
     candidate = np.matmul(U,tmp)
-    index = np.argsort(-candidate)[:100]
-    weights = -np.sort(-candidate)[:100]
+    index = np.argsort(-candidate)[:terms]
+    weights = -np.sort(-candidate)[:terms]
     normW = normalise(weights)
     expansionTerms = wordList[index]
     pqPlus = dict(zip(expansionTerms,normW))
