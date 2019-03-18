@@ -62,10 +62,12 @@ type = torch.FloatTensor
 use_cuda = torch.cuda.is_available()
 
 
-## initialize word embeddings matrix
-
+''' Send model and data for training '''
 
 train_epoch = training.Train(model, optimizer, train, data.w2i, K, N, nwords, input_rep)
-train_epoch.train_model(5)
+train_epoch.train_model(1)
 
+''' Write output '''
 
+helper.writeEmbedding("./embeddings/624_emb.txt", data.w2i, train_epoch.word_embeddings)
+helper.writeWords("./embeddings/624_word.txt", data.w2i, i2w)

@@ -89,13 +89,13 @@ def expandQuery(qtext):
 
 ## Functions to write embeddings and word list to disk
     
-def writeEmbedding(embfile):
+def writeEmbedding(embfile, w2i, word_embeddings):
     with open(embfile, 'w') as embeddings_file:
         for i in range(len(w2i)):
             ith_embedding = '\t'.join(map(str, word_embeddings[i]))
             embeddings_file.write(ith_embedding + '\n')
 
-def writeWords(wordfile):             
+def writeWords(wordfile, w2i, i2w):             
     with open(wordfile, "w") as words_file:
         for i in range(len(w2i)):
             ith_word = i2w[i]
