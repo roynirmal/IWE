@@ -117,6 +117,7 @@ def expandQuery(question, U, terms, wordList, stop):
     weights = -np.sort(-candidate)[:terms]
     normW = normalise(weights)
     expansionTerms = wordList[index]
+
     pqPlus = dict(zip(expansionTerms,normW))
     return expansionTerms, pqPlus
 
