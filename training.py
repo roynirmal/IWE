@@ -1,11 +1,12 @@
-import time, torch, helper
+import time, torch, helper, math
 import numpy as np
 class Train:
-    def __init__(self, model, optimizer, train, word_embeddings, K, N, nwords, input_rep):
+    def __init__(self, model, optimizer, train, w2i, K, N, nwords, input_rep):
         self.model = model
         self.optimizer = optimizer
         self.train = list(filter(None, train))
-        self.word_embeddings = word_embeddings
+        self.w2i = w2i
+        self.word_embeddings = {v: np.random.uniform(-1,1,100) for k, v in self.w2i.items()}
         self.K = K
         self.N = N
         self.nwords = nwords

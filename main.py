@@ -1,4 +1,4 @@
-import helper, dictionary, json, itertools, torch, training
+import helper, dictionary, json, itertools, torch, training, math
 import numpy as np
 from model import WordEmbIWE
 
@@ -63,9 +63,9 @@ use_cuda = torch.cuda.is_available()
 
 
 ## initialize word embeddings matrix
-word_embeddings = {v: np.random.uniform(-1,1,100) for k, v in data.w2i.items()}
 
-train_epoch = training.Train(model, optimizer, train, word_embeddings, K, N, nwords,input_rep)
+
+train_epoch = training.Train(model, optimizer, train, data.w2i, K, N, nwords, input_rep)
 train_epoch.train_model(5)
 
 
