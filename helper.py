@@ -119,6 +119,7 @@ def expandQuery(question, U, terms, wordList):
     normW = normalise(weights)
     expansionTerms = wordList[index]
     pqPlus = dict(zip(expansionTerms,normW))
+    return expansionTerms, pqPlus
 
 
 ## Functions to write embeddings and word list to disk
