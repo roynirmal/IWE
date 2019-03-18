@@ -122,3 +122,4 @@ class Tri_Dictionary(object):
         return self.word_rep
 
 
+''' To Do - Add Inflictional Afflixes Feature '''

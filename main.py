@@ -1,13 +1,14 @@
-import helper, dictionary, json, itertools, torch, training, math
+import helper, dictionary, json, itertools, torch, training, math,util
 import numpy as np
 from model import WordEmbIWE
 
+args = util.get_args()
 
 ''' Load Data and Features '''
 
 ## input document from WPQA
-docs = json.load(open('./data/document_passages.json'))
-example_doc = docs['624']
+docs = json.load(open(args.data))
+example_doc = docs[args.doc_no]
 stop = json.load(open('./data/SMARTstop.json'))
 doc = []
 for value in example_doc.values():
@@ -47,15 +48,15 @@ input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep
 
 ''' Build the model'''
 
-K = 20 # number of negative samples per target word
-N = 5 # length of context on the left side, do i have to try with context on both sides, ik denk zo? 
-emb_dim = 100
+# K = 20 # number of negative samples per target word
+# N = 5 # length of context on the left side, do i have to try with context on both sides, ik denk zo? 
+# emb_dim = 100
 feature_dim= len(input_rep[0]) # feature size of input representation; for one hot encoding feature_dim = vocab_size
-window_size = 3
+# window_size = 3
 nwords = len(data.w2i)
 
-model = WordEmbIWE(feature_dim, emb_dim, window_size, feature_dim)
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1) 
+model = WordEmbIWE(feature_dim, args.emb_dim, args.window_size, feature_dim)
+optimizer = torch.optim.SGD(model.parameters(), lr=args.lr) 
 # optimizer = torch.optim.Adam(model.parameters(), lr = 0.02) 
 
 type = torch.FloatTensor
@@ -64,10 +65,10 @@ use_cuda = torch.cuda.is_available()
 
 ''' Send model and data for training '''
 
-train_epoch = training.Train(model, optimizer, train, data.w2i, K, N, nwords, input_rep)
+train_epoch = training.Train(model, optimizer, train, data.w2i, args.K, args.N, nwords, input_rep)
 train_epoch.train_model(1)
 
 ''' Write output '''
-
-helper.writeEmbedding("./embeddings/624_emb.txt", data.w2i, train_epoch.word_embeddings)
-helper.writeWords("./embeddings/624_word.txt", data.w2i, i2w)
+if args.write_emb and args.write_words:
+	helper.writeEmbedding(args.write_emb+ '_'+ args.doc_no+'.txt', data.w2i, train_epoch.word_embeddings)
+	helper.writeWords(args.write_words+ '_'+ args.doc_no+'.txt', data.w2i, i2w)
