@@ -73,7 +73,7 @@ def normalise(weights):
     return normW
 
 ## Function to find query expansion terms to a given query/text
-def expandQuery(qtext):
+def expandQuery(qText):
     # qText='unemployment'
     filtered_text = removeStopWords(qText)
     q = binaryEncoding(wordList, filtered_text)
