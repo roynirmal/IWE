@@ -111,7 +111,6 @@ def expandQuery(question, U, terms, wordList):
     filtered_text = removeStopWords(qText)
     q = binaryEncoding(wordList, filtered_text)
 
-    # # candidate = UU'q
     tmp = np.matmul(U.T,q)
     candidate = np.matmul(U,tmp)
     index = np.argsort(-candidate)[:terms]
