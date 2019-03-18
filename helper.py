@@ -85,3 +85,18 @@ def expandQuery(qtext):
     normW = normalise(weights)
     expansionTerms = wordList[index]
     pqPlus = dict(zip(expansionTerms,normW))
+
+
+## Functions to write embeddings and word list to disk
+    
+def writeEmbedding(embfile):
+    with open(embfile, 'w') as embeddings_file:
+        for i in range(len(w2i)):
+            ith_embedding = '\t'.join(map(str, word_embeddings[i]))
+            embeddings_file.write(ith_embedding + '\n')
+
+def writeWords(wordfile):             
+    with open(wordfile, "w") as words_file:
+        for i in range(len(w2i)):
+            ith_word = i2w[i]
+            words_file.write(ith_word + '\n')
