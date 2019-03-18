@@ -1,5 +1,33 @@
-import helper
-from collections import Counter
+import helper,string
+import numpy as np
+from collections import Counter, defaultdict
+
+
+## 
+class Corpus(object):
+	def __init(self):
+		self.w2i = defaultdict()
+
+	def read_doc(self, document,stop):
+		self.w2i = defaultdict(lambda: len(self.w2i))
+		S = self.w2i["<s>"]
+		UNK = self.w2i["<unk>"]
+		for sentence in document:
+	        # for words in sentence.strip().split(" "):
+	        #     if not words in stop:
+	        #         word_counts[w2i[words]] +=1 
+			table = str.maketrans('', '', string.punctuation)
+			tokens = [x.translate(table) for x in sentence.split() if not x in stop]
+			yield[self.w2i[y] for y in tokens]
+
+	def one_hot(self, w2i, nwords):
+	    ohv = {}
+	    for word in w2i:
+	        onehotvec = np.zeros(nwords)
+	        onehotvec[w2i[word]] = 1
+	        ohv[w2i[word]] = onehotvec
+	    return ohv
+
 
 ## Dictionary of Root Afflixes Features
 class Root_Dictionary(object):
@@ -9,7 +37,7 @@ class Root_Dictionary(object):
         self.word_rep_root = {}
         self.root_map = word2RootMap
     
-    def build_dict(self, document):
+    def build_dict(self, document,stop):
         
         roots_in_doc = []
         for s in document:
@@ -21,7 +49,7 @@ class Root_Dictionary(object):
                         for j in self.root_map[content_term[i]]:
                             roots_in_doc.append(j)
                     else:
-                        self.root_map[content_term[i]] = content_term[i]
+                        self.root_map[content_term[i]] = [content_term[i]]
                         roots_in_doc.append(content_term[i])
         
         root_count = Counter()
@@ -38,11 +66,11 @@ class Root_Dictionary(object):
         for word in w2i:
             one_word = np.zeros(len(self.root2idx))
             if word in self.root_map.keys():
-                for root in self.root_map[word]:
-                    one_word[self.root2idx[root]] = 1
-                self.word_rep_root[w2i[word]] = one_word
+            	for root in self.root_map[word]:
+            		one_word[self.root2idx[root]] = 1
+            	self.word_rep_root[w2i[word]] = one_word
             else:
-                self.word_rep_root[w2i[word]] = one_word
+            	self.word_rep_root[w2i[word]] = one_word
 
         return self.word_rep_root
 
@@ -56,7 +84,7 @@ class Tri_Dictionary(object):
         self.tri_lookup = {}
         self.word_rep = {}
     
-    def build_dict(self, document):
+    def build_dict(self, document,stop):
         all_terms = []
         
         for s in document:    

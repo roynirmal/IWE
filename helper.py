@@ -100,3 +100,5 @@ def writeWords(wordfile):
         for i in range(len(w2i)):
             ith_word = i2w[i]
             words_file.write(ith_word + '\n')
+
+
