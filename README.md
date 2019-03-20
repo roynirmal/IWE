@@ -13,4 +13,4 @@ To get your own IWE embeddings on the WikiPassageQA data, run the follwoing code
 git clone https://github.com/roynirmal/IWE.git
 python main.py 
 ```
-The word embeddings and the word list will be in the `./Embeddings/` folder. If you want to use your own data put it inside the `./data/` folder.
+The word embeddings and the word list will be in the `./embeddings/` folder. If you want to use your own data put it inside the `./data/` folder.
