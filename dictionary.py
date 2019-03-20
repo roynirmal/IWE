@@ -41,7 +41,8 @@ class Root_Dictionary(object):
         
         roots_in_doc = []
         for s in document:
-            content_term = s.split(" ")
+            table = str.maketrans('', '', string.punctuation)
+            content_term = [x.translate(table) for x in s.split(" ") if not x in stop]
             for i in range(len(content_term)):
                 if not content_term[i] in stop:
                     ## just pick up roots of the words in the document
