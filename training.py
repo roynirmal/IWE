@@ -80,11 +80,11 @@ class Train:
 
         return torch.stack(losses).sum()
 
-    def train_model(self, epoch):
+    def train_model(self, epoch, doc):
 
 
         for ITER in range(epoch):
-            print("started iter %r" % ITER)
+            print("started iter %r of document %r" % (ITER, doc))
             # Perform training
         #     random.shuffle(train)
             train_words, train_loss = 0, 0.0
