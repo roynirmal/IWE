@@ -100,9 +100,9 @@ class Train:
                 self.optimizer.zero_grad()
                 my_loss.backward()
                 self.optimizer.step()
-                if (sent_id + 1) % 50 == 0:
-                    print("--finished %r sentences" % (sent_id + 1))
+                # if (sent_id + 1) % 50 == 0:
+                #     print("--finished %r sentences" % (sent_id + 1))
         #     print("iter %r: train loss %.4f, train words %.4f" % (ITER, train_loss, train_words))
         #     break
-            print("iter %r: train loss/word=%.4f, ppl=%.4f, time=%.2fs" % (
-            ITER, train_loss / train_words, math.exp(train_loss / train_words), time.time() - start))
+            print("finished iter %r of document %r: train loss/word=%.4f, ppl=%.4f, time=%.2fs" % (
+            ITER, doc, train_loss / train_words, math.exp(train_loss / train_words), time.time() - start))
