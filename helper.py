@@ -34,7 +34,7 @@ def split_into_sentences(text):
     if "i.e." in text: text = text.replace("i.e.","i<prd>e<prd>")
     text = text.replace(",","")
     text = text.replace("-"," ")
-    text = text.replace("'"," '")
+    text = text.replace("'"," ")
     text = text.replace('"', "")
     text = text.replace('(','')
     text = text.replace(')','')
