@@ -17,7 +17,7 @@ class Train:
         use_cuda = torch.cuda.is_available()
 
         if use_cuda:
-            self.type = torch.cuda(self.cudadevice).FloatTensor
+            self.type = torch.cuda.FloatTensor
             self.model.cuda(self.cudadevice)
         ## Function to Calculate Sentence Loss
     def calc_sent_loss(self, sent,  BothSides, LastEpoch):
@@ -34,13 +34,13 @@ class Train:
                 neg_words = np.random.choice(self.nwords, size=self.K, replace=True)
 
                 context_words = padded_sent[i-self.N:i] + padded_sent[i + 1:i + self.N + 1]
-                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).type(self.type)
+                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(self.cudadevice)
 
                 target_word = padded_sent[i]
         #         neg_words = all_neg_words[(i-N)*K:(i-N+1)*K]
 
                 sample_words_tensor= torch.tensor([self.input_rep[target_word]]+ 
-                                                  [self.input_rep[x] for x in neg_words]).type(self.type)
+                                                  [self.input_rep[x] for x in neg_words]).cuda(self.cudadevice)
 
                 loss, word_emb = self.model(sample_words_tensor, context_words_tensor)
                 # save the word embedding at the last epoch
@@ -61,13 +61,13 @@ class Train:
                 neg_words = np.random.choice(self.nwords, size=self.K, replace=True)
 
                 context_words = padded_sent[i-self.N:i]
-                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).type(self.type)
+                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(self.cudadevice)
 
                 target_word = padded_sent[i]
         #         neg_words = all_neg_words[(i-N)*K:(i-N+1)*K]
 
                 sample_words_tensor= torch.tensor([self.input_rep[target_word]]+ 
-                                                  [self.input_rep[x] for x in neg_words]).type(self.type)
+                                                  [self.input_rep[x] for x in neg_words]).cuda(self.cudadevice)
 
                 loss, word_emb = self.model(sample_words_tensor, context_words_tensor)
                 # save the word embedding at the last epoch
