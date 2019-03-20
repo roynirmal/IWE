@@ -1,7 +1,7 @@
 import time, torch, helper, math
 import numpy as np
 class Train:
-    def __init__(self, model, optimizer, train, w2i, K, N, nwords, input_rep):
+    def __init__(self, model, optimizer, train, w2i, K, N, nwords, input_rep, cuda):
         self.model = model
         self.optimizer = optimizer
         self.train = list(filter(None, train))
@@ -11,13 +11,14 @@ class Train:
         self.N = N
         self.nwords = nwords
         self.input_rep = input_rep
+        self.cudadevice = cuda
 
         self.type = torch.FloatTensor
         use_cuda = torch.cuda.is_available()
 
         if use_cuda:
             self.type = torch.cuda.FloatTensor
-            self.model.cuda()
+            self.model.cuda(self.cudadevice)
         ## Function to Calculate Sentence Loss
     def calc_sent_loss(self, sent,  BothSides, LastEpoch):
         #check if we are taking context from both sides

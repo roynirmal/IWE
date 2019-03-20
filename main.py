@@ -63,7 +63,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
 
 ''' Send model and data for training '''
 
-train_epoch = training.Train(model, optimizer, train, data.w2i, args.K, args.N, nwords, input_rep)
+train_epoch = training.Train(model, optimizer, train, data.w2i, args.K, args.N, nwords, input_rep, args.cuda)
 train_epoch.train_model(args.epoch)
 
 ''' Write output '''

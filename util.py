@@ -15,6 +15,7 @@ def get_args():
     parser.add_argument('--emb_dim', type=int, default=100 , help='Embedding size')
     parser.add_argument('--lr', type=float, default=0.1 , help='Learning Rate of optimizer')
     parser.add_argument('--epoch', type=int, default=50 , help='Embedding size')
+    parser.add_argument('--cuda', type=int, default=0 , help='Cuda device')
     
 
 
