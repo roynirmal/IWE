@@ -17,7 +17,7 @@ class Train:
         use_cuda = torch.cuda.is_available()
 
         if use_cuda:
-            self.type = torch.cuda.FloatTensor
+            self.type = torch.cuda(self.cudadevice).FloatTensor
             self.model.cuda(self.cudadevice)
         ## Function to Calculate Sentence Loss
     def calc_sent_loss(self, sent,  BothSides, LastEpoch):
