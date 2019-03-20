@@ -10,12 +10,12 @@ class WordEmbIWE(torch.nn.Module):
         """ word embeddings """
         
         self.generate_word_embedding = torch.nn.Sequential(torch.nn.Linear(feature_dim, hidden_size), torch.nn.Tanh(), 
-                                                           torch.nn.Linear(hidden_size, emb_dim), torch.nn.Tanh()).cuda(0)
+                                                           torch.nn.Linear(hidden_size, emb_dim), torch.nn.Tanh())
         
         """ context embeddings"""
         # Conv 1d
         self.conv_1d = torch.nn.Conv1d(in_channels=feature_dim, out_channels=emb_dim, kernel_size=window_size,
-                                        stride=1, padding=int((window_size-1)/2), dilation=1, groups=1, bias=True).cuda(1)
+                                        stride=1, padding=int((window_size-1)/2), dilation=1, groups=1, bias=True)
         
 
 
@@ -30,7 +30,7 @@ class WordEmbIWE(torch.nn.Module):
         ## target_word_dim = 1 x feature_dim
         
         word_rep = self.generate_word_embedding(sample_word)# (target_word + neg_words) x emb_dim
-        context_rep = context_rep.cuda(0)
+        # context_rep = context_rep.cuda(0)
         cos = torch.nn.CosineSimilarity(dim=1, eps=1e-08) # eps = to avoid divisibility by zero
         sim_layer = cos(context_rep, word_rep) # similarity of each word with the context representation 1 x (target_word + neg_words)
         softmax = torch.nn.LogSoftmax(dim = 0)

@@ -12,7 +12,7 @@ class Train:
         self.nwords = nwords
         self.input_rep = input_rep
         ## Function to Calculate Sentence Loss
-    def calc_sent_loss(self, sent,  BothSides, LastEpoch):
+    def calc_sent_loss(self, sent,  BothSides, LastEpoch, type):
         #check if we are taking context from both sides
         if BothSides:
         # add padding to the sentence beginning and end equal to the size of the window
@@ -26,13 +26,13 @@ class Train:
                 neg_words = np.random.choice(self.nwords, size=self.K, replace=True)
 
                 context_words = padded_sent[i-self.N:i] + padded_sent[i + 1:i + self.N + 1]
-                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(1)
+                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).type(type)
 
                 target_word = padded_sent[i]
         #         neg_words = all_neg_words[(i-N)*K:(i-N+1)*K]
 
                 sample_words_tensor= torch.tensor([self.input_rep[target_word]]+ 
-                                                  [self.input_rep[x] for x in neg_words]).cuda(0)
+                                                  [self.input_rep[x] for x in neg_words]).type(type)
 
                 loss, word_emb = self.model(sample_words_tensor, context_words_tensor)
                 # save the word embedding at the last epoch
@@ -73,6 +73,12 @@ class Train:
         return torch.stack(losses).sum()
 
     def train_model(self, epoch):
+        type = torch.FloatTensor
+        use_cuda = torch.cuda.is_available()
+
+        if use_cuda:
+            type = torch.cuda.FloatTensor
+            model.cuda()
 
         for ITER in range(epoch):
             print("started iter %r" % ITER)
@@ -82,9 +88,9 @@ class Train:
             start = time.time()
             for sent_id, sent in enumerate(self.train):
                 if ITER == epoch-1:
-                    my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=True)
+                    my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=True, type)
                 else:
-                    my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=False)
+                    my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=False, type)
                 train_loss += my_loss.item()
                 train_words += len(sent)
                 # Taking the step after calculating loss for all the words in the sentence

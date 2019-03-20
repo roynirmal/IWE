@@ -59,9 +59,6 @@ model = WordEmbIWE(feature_dim, args.emb_dim, args.window_size, feature_dim)
 optimizer = torch.optim.SGD(model.parameters(), lr=args.lr) 
 # optimizer = torch.optim.Adam(model.parameters(), lr = 0.02) 
 
-type = torch.FloatTensor
-use_cuda = torch.cuda.is_available()
-
 
 ''' Send model and data for training '''
 
