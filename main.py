@@ -16,6 +16,7 @@ for value in example_doc.values():
 text = list(itertools.chain.from_iterable(doc))
 textLower = [t.lower() for t in text]
 
+
 ## input the rootlist as mentioned in https://github.com/ShelsonCao/IWE/blob/master/Data/features/rootList.txt
 rootList = open("./features/rootList.txt", 'r')
 roots = []
