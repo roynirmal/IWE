@@ -43,9 +43,11 @@ root_rep = root_dictionary.build_input_feature(data.w2i)
 
 tri_dictionary = dictionary.Tri_Dictionary()
 tri_dictionary.build_dict(textLower, stop)
-
 tri_rep = tri_dictionary.build_input_feature(data.w2i)
-input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep])
+
+input_rep = tri_rep
+
+# input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep])
 
 ''' Build the model'''
 
