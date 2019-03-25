@@ -58,7 +58,7 @@ feature_dim= len(input_rep[0]) # feature size of input representation; for one h
 # window_size = 3
 nwords = len(data.w2i)
 
-model = WordEmbIWE(feature_dim, args.emb_dim, args.window_size, feature_dim)
+model = WordEmbIWE(feature_dim, args.emb_dim, args.window_size, args.hidden)
 optimizer = torch.optim.SGD(model.parameters(), lr=args.lr) 
 # optimizer = torch.optim.Adam(model.parameters(), lr = 0.02) 
 

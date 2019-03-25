@@ -13,6 +13,7 @@ def get_args():
     parser.add_argument('--both_sides', type=bool, default=True, help='if context size is on both sides or one')
     parser.add_argument('--window_size', type=int, default=3 , help='window size of convlutional filter')
     parser.add_argument('--emb_dim', type=int, default=100 , help='Embedding size')
+    parser.add_argument('--hidden', type=int, default=1000 , help='dimension of hidden layer of embedding')
     parser.add_argument('--lr', type=float, default=0.1 , help='Learning Rate of optimizer')
     parser.add_argument('--epoch', type=int, default=50 , help='Embedding size')
     parser.add_argument('--cuda', type=int, default=0 , help='Cuda device')
