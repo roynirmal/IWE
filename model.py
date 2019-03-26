@@ -9,9 +9,9 @@ class WordEmbIWE(torch.nn.Module):
 
         """ word embeddings """
         
-        # self.generate_word_embedding = torch.nn.Sequential(torch.nn.Linear(feature_dim, hidden_size), torch.nn.Tanh(), 
-        #                                                    torch.nn.Linear(hidden_size, emb_dim), torch.nn.Tanh())
-        self.generate_word_embedding = torch.nn.Sequential(torch.nn.Linear(feature_dim, emb_dim), torch.nn.Tanh())
+        self.generate_word_embedding = torch.nn.Sequential(torch.nn.Linear(feature_dim, hidden_size), torch.nn.Tanh(), 
+                                                           torch.nn.Linear(hidden_size, emb_dim), torch.nn.Tanh())
+        # self.generate_word_embedding = torch.nn.Sequential(torch.nn.Linear(feature_dim, emb_dim), torch.nn.Tanh())
         """ context embeddings"""
         # Conv 1d
         self.conv_1d = torch.nn.Conv1d(in_channels=feature_dim, out_channels=emb_dim, kernel_size=window_size,
