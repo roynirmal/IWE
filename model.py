@@ -15,7 +15,7 @@ class WordEmbIWE(torch.nn.Module):
         """ context embeddings"""
         # Conv 1d
         self.conv_1d = torch.nn.Conv1d(in_channels=feature_dim, out_channels=emb_dim, kernel_size=window_size,
-                                        stride=1, padding=0, dilation=1, groups=1, bias=True)
+                                       stride=1, padding=int((window_size-1)/2), dilation=1, groups=1, bias=True)
         
 
 
