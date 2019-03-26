@@ -4,9 +4,10 @@ import torch
 
 
 class WordEmbIWE(torch.nn.Module):
-    def __init__(self, feature_dim, emb_dim, window_size, hidden_size):
+    def __init__(self, feature_dim, emb_dim, window_size, hidden_size, gamma):
         super(WordEmbIWE, self).__init__()
 
+        self.gamma = gamma
         """ word embeddings """
         
         # self.generate_word_embedding = torch.nn.Sequential(torch.nn.Linear(feature_dim, hidden_size), torch.nn.Tanh(), 
@@ -33,7 +34,7 @@ class WordEmbIWE(torch.nn.Module):
         # print(word_rep)
         # context_rep = context_rep.cuda(0)
         cos = torch.nn.CosineSimilarity(dim=1, eps=1e-08) # eps = to avoid divisibility by zero
-        sim_layer = 100*cos(context_rep, word_rep) 
+        sim_layer = self.gamma*cos(context_rep, word_rep) 
         # print(word_rep[0])
         # print(word_rep[1])
 
