@@ -31,7 +31,6 @@ for item in word2Root:
     word2RootMap[item.split()[0]] = item.split()[1].split(",")
 
 data = dictionary.Corpus()
-
 train = list(data.read_doc(textLower, stop)) 
 i2w = {v: k for k, v in data.w2i.items()} ##stores index to words
 
