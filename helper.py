@@ -62,8 +62,8 @@ def split_into_sentences(text):
 
 def prepare_question_text(question_text):
     question_text = question_text.replace('?','') #remove ?
-    question_text = question_text.replace("'",'')
-    question_text = question_text.replace('"','')
+    question_text = question_text.replace("'",' ')
+    question_text = question_text.replace('"',' ')
     question_text = question_text.replace('-',' ')
     question_text = question_text.replace('(','')
     question_text = question_text.replace(')','')
