@@ -102,6 +102,8 @@ def binaryEncoding(wordList, qText):
 
 ## Normalize query expansion weights
 def normalise(weights):
+    if (min(weights) <0):
+        weights = weights + abs(min(weights))
     sumW = np.sum(weights)
     normW = weights/sumW
     return normW
