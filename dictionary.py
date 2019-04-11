@@ -5,7 +5,7 @@ from collections import Counter, defaultdict
 
 ## 
 class Corpus(object):
-	def __init(self):
+	def __init__(self):
 		self.w2i = defaultdict()
 
 	def read_doc(self, document,stop):
