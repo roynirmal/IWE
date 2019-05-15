@@ -140,4 +140,12 @@ def writeWords(wordfile, w2i, i2w):
             ith_word = i2w[i]
             words_file.write(ith_word + '\n')
 
+def writeFilters(filterfile, filters):             
+    with open(filterfile, "w") as filters_file:
+        for data_slice in filters.data.cpu().numpy():
+        # for i in range(list(filters.shape)[0]):
+            np.savetxt(filters_file, data_slice, fmt='%-7.8f')
+
+        # Writing out a break to indicate different slices...
+            filters_file.write('# New slice\n')
 

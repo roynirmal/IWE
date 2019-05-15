@@ -71,3 +71,6 @@ train_epoch.train_model(args.epoch, args.doc_no)
 if args.write_emb and args.write_words:
 	helper.writeEmbedding(args.write_emb+ '_'+ args.doc_no+'.txt', data.w2i, train_epoch.word_embeddings)
 	helper.writeWords(args.write_words+ '_'+ args.doc_no+'.txt', data.w2i, i2w)
+
+if args.write_filters:
+	helper.writeFilters(args.write_filters+ '_'+ args.doc_no+'.txt', train_epoch.filters)

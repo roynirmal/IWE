@@ -21,9 +21,9 @@ class WordEmbIWE(torch.nn.Module):
 
 
     # useful ref: https://arxiv.org/abs/1402.3722
-    def forward(self, sample_word, context_words):
+    def forward(self, sample_word, context_words, lastEpoch):
         ## context_words dimension = no_of_context_words x feature_dim
-        # print(sample_word)
+        
         con = context_words.unsqueeze(0).permute(0, 2, 1) # 1 x feature_dim x no_of_context_words 
         context_conv = self.conv_1d(con) # 1 x emb_dim x no_of_context_words 
         
@@ -53,5 +53,9 @@ class WordEmbIWE(torch.nn.Module):
         # print(obj)
         # print(obj1)        
 
-        
-        return  -obj[0], word_rep	
+        if lastEpoch:
+        	# print("Filters", self.conv_1d.weight)
+        	# print("ShapE", self.conv_1d.weight.shape)
+        	return  -obj[0], word_rep, self.conv_1d.weight
+        else:
+        	return -obj[0], word_rep, None

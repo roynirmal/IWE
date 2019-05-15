@@ -12,7 +12,7 @@ class Train:
         self.nwords = nwords
         self.input_rep = input_rep
         self.cudadevice = cuda
-
+        self.filters = None
         self.type = torch.FloatTensor
         use_cuda = torch.cuda.is_available()
 
@@ -42,9 +42,12 @@ class Train:
                 sample_words_tensor= torch.tensor([self.input_rep[target_word]]+ 
                                                   [self.input_rep[x] for x in neg_words]).cuda(self.cudadevice)
 
-                loss, word_emb = self.model(sample_words_tensor, context_words_tensor)
+                loss, word_emb, self.filters = self.model(sample_words_tensor, context_words_tensor, LastEpoch)
+
                 # save the word embedding at the last epoch
                 if LastEpoch:
+                    print(self.filters.shape)
+
                     for c, word in enumerate([target_word]+[x for x in neg_words]):
                         self.word_embeddings[word] = word_emb.data.cpu().numpy()[c]
 
@@ -69,7 +72,7 @@ class Train:
                 sample_words_tensor= torch.tensor([self.input_rep[target_word]]+ 
                                                   [self.input_rep[x] for x in neg_words]).cuda(self.cudadevice)
 
-                loss, word_emb = self.model(sample_words_tensor, context_words_tensor)
+                loss, word_emb, self.filters = self.model(sample_words_tensor, context_words_tensor, LastEpoch)
                 # save the word embedding at the last epoch
                 if LastEpoch:
                     for c, word in enumerate([target_word]+[x for x in neg_words]):
