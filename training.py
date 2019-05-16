@@ -46,7 +46,7 @@ class Train:
 
                 # save the word embedding at the last epoch
                 if LastEpoch:
-                    print(self.filters.shape)
+                    # print(self.filters.shape)
 
                     for c, word in enumerate([target_word]+[x for x in neg_words]):
                         self.word_embeddings[word] = word_emb.data.cpu().numpy()[c]
