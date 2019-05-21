@@ -17,8 +17,8 @@ class Corpus(object):
 			#     if not words in stop:
 			#         word_counts[w2i[words]] +=1 
 			table = str.maketrans('', '', string.punctuation)
-			# tokens = [x.translate(table) for x in sentence.split(" ") if not x in stop]
-			tokens = [x.translate(table) for x in sentence.split(" ")]
+			tokens = [x.translate(table) for x in sentence.split(" ") if not x in stop]
+			# tokens = [x.translate(table) for x in sentence.split(" ")]
 			yield[self.w2i[y] for y in tokens if y.isalpha()]
 
 	def one_hot(self, w2i, nwords):
