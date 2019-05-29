@@ -51,11 +51,11 @@ tri_dictionary = dictionary.Tri_Dictionary()
 tri_dictionary.build_dict(textLower[:1000000], stop)
 print("Build the input dict using the trigram features")
 
-tri_rep = tri_dictionary.build_input_feature(data.w2i)
+input_rep = tri_dictionary.build_input_feature(data.w2i)
 
 print("Build the input representation using the final features")
 # input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep])
-input_rep = dict([(k, tri_rep[k].tolist()) for k in tri_rep])
+# input_rep = dict([(k, tri_rep[k].tolist()) for k in tri_rep])
 
 ''' Build the model'''
 print("Build the model")
