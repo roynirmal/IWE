@@ -94,7 +94,7 @@ class Train:
             start = time.time()
             for sent_id, sent in enumerate(self.train):
                 if(sent_id%100000 ==0):
-                    print("Finished %r sentences for iteration %r" %(sent_id, sent))
+                    print("Finished %r sentences for iteration %r" %(sent_id, ITER))
 
                 if ITER == epoch-1:
                     my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=True)

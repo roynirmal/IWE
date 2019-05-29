@@ -33,7 +33,7 @@ for item in word2Root:
     word2RootMap[item.split()[0]] = item.split()[1].split(",")
 
 data = dictionary.Corpus()
-train = list(data.read_doc(textLower[:100000], stop)) 
+train = list(data.read_doc(textLower[:1000000], stop)) 
 i2w = {v: k for k, v in data.w2i.items()} ##stores index to words
 
 
@@ -48,7 +48,7 @@ i2w = {v: k for k, v in data.w2i.items()} ##stores index to words
 
 print("Build the input representation using the trigram  features")
 tri_dictionary = dictionary.Tri_Dictionary()
-tri_dictionary.build_dict(textLower[:100000], stop)
+tri_dictionary.build_dict(textLower[:1000000], stop)
 print("Build the input dict using the trigram features")
 
 tri_rep = tri_dictionary.build_input_feature(data.w2i)
@@ -58,7 +58,7 @@ print("Build the input representation using the final features")
 input_rep = dict([(k, tri_rep[k].tolist()) for k in tri_rep])
 
 ''' Build the model'''
-
+print("Build the model")
 # K = 20 # number of negative samples per target word
 # N = 5 # length of context on the left side, do i have to try with context on both sides, ik denk zo? 
 # emb_dim = 100
