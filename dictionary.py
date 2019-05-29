@@ -14,7 +14,7 @@ class Corpus(object):
 		UNK = self.w2i["<unk>"]
 		c = 0
 		for sentence in document:
-			c + =1
+			c += 1
 			if(c%10000 ==0):
 				print(c, " sentences has been read and turned into index")
 			# for words in sentence.strip().split(" "):
