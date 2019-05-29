@@ -9,7 +9,7 @@ args = util.get_args()
 ## input document from WPQA
 # docs = json.load(open(args.data))
 # example_doc = docs[args.doc_no]
-# stop = json.load(open('./data/SMARTstop.json'))
+stop = json.load(open('./data/SMARTstop.json'))
 # doc = []
 # for value in example_doc.values():
 #     doc.append(helper.split_into_sentences(value))
