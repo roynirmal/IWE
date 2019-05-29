@@ -92,10 +92,10 @@ class Train:
         #     random.shuffle(train)
             train_words, train_loss = 0, 0.0
             start = time.time()
-            print("started iter %r of document %r, time=%.2fs" % (ITER, doc))
+            print("started iter %r of document %r" % (ITER, doc))
             for sent_id, sent in enumerate(self.train):
                 if(sent_id%1000 ==0):
-                    print("Finished %r sentences for iteration %r" %(sent_id, ITER, time.time() - start))
+                    print("Finished %r sentences for iteration %r, time=%.2fs" %(sent_id, ITER,  time.time() - start))
 
                 if ITER == epoch-1:
                     my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=True)
