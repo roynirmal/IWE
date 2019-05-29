@@ -12,7 +12,11 @@ class Corpus(object):
 		self.w2i = defaultdict(lambda: len(self.w2i))
 		S = self.w2i["<s>"]
 		UNK = self.w2i["<unk>"]
+		c = 0
 		for sentence in document:
+			c + =1
+			if(c%10000 ==0):
+				print(c, " sentences has been read and turned into index")
 			# for words in sentence.strip().split(" "):
 			#     if not words in stop:
 			#         word_counts[w2i[words]] +=1 

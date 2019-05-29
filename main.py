@@ -1,4 +1,4 @@
-import helper, dictionary, json, itertools, torch, training, math,util
+import helper, dictionary, json, itertools, torch, training, math,util, pickle
 import numpy as np
 from model import WordEmbIWE
 
@@ -7,14 +7,16 @@ args = util.get_args()
 ''' Load Data and Features '''
 
 ## input document from WPQA
-docs = json.load(open(args.data))
-example_doc = docs[args.doc_no]
-stop = json.load(open('./data/SMARTstop.json'))
-doc = []
-for value in example_doc.values():
-    doc.append(helper.split_into_sentences(value))
-text = list(itertools.chain.from_iterable(doc))
-textLower = [t.lower() for t in text]
+# docs = json.load(open(args.data))
+# example_doc = docs[args.doc_no]
+# stop = json.load(open('./data/SMARTstop.json'))
+# doc = []
+# for value in example_doc.values():
+#     doc.append(helper.split_into_sentences(value))
+# text = list(itertools.chain.from_iterable(doc))
+textLower =  pickle.load(open("filetext.pkl", "rb"))
+
+print("Text Lower has been done. Now sending to Dictionary..")
 
 
 ## input the rootlist as mentioned in https://github.com/ShelsonCao/IWE/blob/master/Data/features/rootList.txt
