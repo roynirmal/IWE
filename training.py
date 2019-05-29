@@ -87,14 +87,15 @@ class Train:
 
 
         for ITER in range(epoch):
-            print("started iter %r of document %r" % (ITER, doc))
+            
             # Perform training
         #     random.shuffle(train)
             train_words, train_loss = 0, 0.0
             start = time.time()
+            print("started iter %r of document %r, time=%.2fs" % (ITER, doc))
             for sent_id, sent in enumerate(self.train):
-                if(sent_id%100000 ==0):
-                    print("Finished %r sentences for iteration %r" %(sent_id, ITER))
+                if(sent_id%1000 ==0):
+                    print("Finished %r sentences for iteration %r" %(sent_id, ITER, time.time() - start))
 
                 if ITER == epoch-1:
                     my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=True)
