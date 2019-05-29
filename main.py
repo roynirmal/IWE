@@ -38,6 +38,7 @@ i2w = {v: k for k, v in data.w2i.items()} ##stores index to words
 
 
 '''Build the input representation using the features '''
+print("Build the input representation using the features")
 root_dictionary = dictionary.Root_Dictionary(word2RootMap)
 root_dictionary.build_dict(textLower,stop)
 root_rep = root_dictionary.build_input_feature(data.w2i)
@@ -65,7 +66,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
 
 
 ''' Send model and data for training '''
-
+print("Send model and data for training")
 train_epoch = training.Train(model, optimizer, train, data.w2i, args.K, args.N, nwords, input_rep, args.cuda)
 train_epoch.train_model(args.epoch, args.doc_no)
 
