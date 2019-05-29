@@ -34,13 +34,13 @@ class Train:
                 neg_words = np.random.choice(self.nwords, size=self.K, replace=True)
 
                 context_words = padded_sent[i-self.N:i] + padded_sent[i + 1:i + self.N + 1]
-                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(self.cudadevice)
+                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(self.cudadevice).FloatTensor
 
                 target_word = padded_sent[i]
         #         neg_words = all_neg_words[(i-N)*K:(i-N+1)*K]
 
                 sample_words_tensor= torch.tensor([self.input_rep[target_word]]+ 
-                                                  [self.input_rep[x] for x in neg_words]).cuda(self.cudadevice)
+                                                  [self.input_rep[x] for x in neg_words]).cuda(self.cudadevice).FloatTensor
 
                 loss, word_emb, self.filters = self.model(sample_words_tensor, context_words_tensor, LastEpoch)
 
