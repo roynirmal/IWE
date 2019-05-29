@@ -15,7 +15,7 @@ class Corpus(object):
 		c = 0
 		for sentence in document:
 			c += 1
-			if(c%10000 ==0):
+			if(c%100000 ==0):
 				print(c, " sentences has been read and turned into index")
 			# for words in sentence.strip().split(" "):
 			#     if not words in stop:
