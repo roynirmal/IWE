@@ -89,7 +89,7 @@ class Tri_Dictionary(object):
 		self.tri2idx = {}
 		self.idx2tri = []
 		self.tri_lookup = {}
-		self.word_rep = {}
+		self.word_rep = defaultdict()
 	
 	def build_dict(self, document,stop):
 		all_terms = []
@@ -116,7 +116,8 @@ class Tri_Dictionary(object):
 			self.tri2idx[w[0]] = len(self.idx2tri) - 1
 			
 	def build_input_feature(self, w2i):
-		
+		print(len(self.tri2idx))
+		print(len(w2i))
 		for word in w2i:
 			one_word = np.zeros(len(self.tri2idx))
 			if word in self.tri_lookup:

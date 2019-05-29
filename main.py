@@ -48,7 +48,7 @@ i2w = {v: k for k, v in data.w2i.items()} ##stores index to words
 
 print("Build the input representation using the trigram  features")
 tri_dictionary = dictionary.Tri_Dictionary()
-tri_dictionary.build_dict(textLower, stop)
+tri_dictionary.build_dict(textLower[:100000], stop)
 print("Build the input dict using the trigram features")
 
 tri_rep = tri_dictionary.build_input_feature(data.w2i)
