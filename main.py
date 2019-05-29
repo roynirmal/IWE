@@ -38,13 +38,13 @@ i2w = {v: k for k, v in data.w2i.items()} ##stores index to words
 
 
 '''Build the input representation using the features '''
-print("Build the input representation using the root features")
+# print("Build the input representation using the root features")
 	
-root_dictionary = dictionary.Root_Dictionary(word2RootMap)
-root_dictionary.build_dict(textLower,stop)
-print("Build the input dict using the root features")
+# root_dictionary = dictionary.Root_Dictionary(word2RootMap)
+# root_dictionary.build_dict(textLower,stop)
+# print("Build the input dict using the root features")
 
-root_rep = root_dictionary.build_input_feature(data.w2i)
+# root_rep = root_dictionary.build_input_feature(data.w2i)
 
 print("Build the input representation using the trigram  features")
 tri_dictionary = dictionary.Tri_Dictionary()
@@ -54,8 +54,8 @@ print("Build the input dict using the trigram features")
 tri_rep = tri_dictionary.build_input_feature(data.w2i)
 
 print("Build the input representation using the final features")
-input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep])
-# input_rep = dict([(k, tri_rep[k].tolist()) for k in tri_rep])
+# input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep])
+ input_rep = dict([(k, tri_rep[k].tolist()) for k in tri_rep])
 
 ''' Build the model'''
 
