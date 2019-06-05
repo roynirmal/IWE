@@ -34,13 +34,13 @@ class Train:
                 neg_words = np.random.choice(self.nwords, size=self.K, replace=True)
 
                 context_words = padded_sent[i-self.N:i] + padded_sent[i + 1:i + self.N + 1]
-                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).type(self.type)
+                context_words_tensor= torch.tensor([self.input_rep[x] for x in context_words]).cuda(self.cudadevice)
 
                 target_word = padded_sent[i]
         #         neg_words = all_neg_words[(i-N)*K:(i-N+1)*K]
 
                 sample_words_tensor= torch.tensor([self.input_rep[target_word]]+ 
-                                                  [self.input_rep[x] for x in neg_words]).type(self.type)
+                                                  [self.input_rep[x] for x in neg_words]).cuda(self.cudadevice)
 
                 loss, word_emb, self.filters = self.model(sample_words_tensor, context_words_tensor, LastEpoch)
 
@@ -94,8 +94,8 @@ class Train:
             start = time.time()
             print("started iter %r of document %r" % (ITER, doc))
             for sent_id, sent in enumerate(self.train):
-                if(sent_id%1000 ==0):
-                    print("Finished %r sentences for iteration %r, time=%.2fs" %(sent_id, ITER,  time.time() - start))
+                # if(sent_id%1000 ==0):
+                    # print("Finished %r sentences for iteration %r, time=%.2fs" %(sent_id, ITER,  time.time() - start))
 
                 if ITER == epoch-1:
                     my_loss = self.calc_sent_loss(sent,  BothSides=True, LastEpoch=True)

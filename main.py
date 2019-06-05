@@ -7,14 +7,15 @@ args = util.get_args()
 ''' Load Data and Features '''
 
 ## input document from WPQA
-# docs = json.load(open(args.data))
-# example_doc = docs[args.doc_no]
+docs = json.load(open(args.data))
+example_doc = docs[args.doc_no]
 stop = json.load(open('./data/SMARTstop.json'))
-# doc = []
-# for value in example_doc.values():
-#     doc.append(helper.split_into_sentences(value))
-# text = list(itertools.chain.from_iterable(doc))
-textLower =  pickle.load(open("filetext.pkl", "rb"))
+doc = []
+for value in example_doc.values():
+    doc.append(helper.split_into_sentences(value))
+text = list(itertools.chain.from_iterable(doc))
+# textLower =  pickle.load(open("filetext.pkl", "rb"))
+textLower = [t.lower() for t in text]
 
 print("Text Lower has been done. Now sending to Dictionary..")
 
@@ -33,28 +34,28 @@ for item in word2Root:
     word2RootMap[item.split()[0]] = item.split()[1].split(",")
 
 data = dictionary.Corpus()
-train = list(data.read_doc(textLower[:3000000], stop)) 
+train = list(data.read_doc(textLower, stop)) 
 i2w = {v: k for k, v in data.w2i.items()} ##stores index to words
 
 
 '''Build the input representation using the features '''
-# print("Build the input representation using the root features")
+print("Build the input representation using the root features")
 	
-# root_dictionary = dictionary.Root_Dictionary(word2RootMap)
-# root_dictionary.build_dict(textLower,stop)
-# print("Build the input dict using the root features")
+root_dictionary = dictionary.Root_Dictionary(word2RootMap)
+root_dictionary.build_dict(textLower,stop)
+print("Build the input dict using the root features")
 
-# root_rep = root_dictionary.build_input_feature(data.w2i)
+root_rep = root_dictionary.build_input_feature(data.w2i)
 
 print("Build the input representation using the trigram  features")
 tri_dictionary = dictionary.Tri_Dictionary()
-tri_dictionary.build_dict(textLower[:3000000], stop)
+tri_dictionary.build_dict(textLower, stop)
 print("Build the input dict using the trigram features")
-
-input_rep = tri_dictionary.build_input_feature(data.w2i)
-print(np.asarray(input_rep).shape)
+tri_rep = tri_dictionary.build_input_feature(data.w2i)
+# input_rep = tri_dictionary.build_input_feature(data.w2i)
+# print(np.asarray(input_rep).shape)
 print("Build the input representation using the final features")
-# input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep])
+input_rep = dict([(k, tri_rep[k].tolist()+root_rep[k].tolist()) for k in tri_rep])
 # input_rep = dict([(k, tri_rep[k].tolist()) for k in tri_rep])
 
 ''' Build the model'''
