@@ -1,7 +1,7 @@
 import helper,string
 import numpy as np
 from collections import Counter, defaultdict
-
+from random import sample
 
 ## 
 class Corpus(object):
@@ -22,6 +22,9 @@ class Corpus(object):
 			#         word_counts[w2i[words]] +=1 
 			table = str.maketrans('', '', string.punctuation)
 			tokens = [x.translate(table) for x in sentence.split(" ") if not x in stop]
+			# print(tokens)
+			tokens = sample(tokens, len(tokens)) 
+			# print("after shuffle", tokens		)
 			# tokens = [x.translate(table) for x in sentence.split(" ")]
 			yield[self.w2i[y] for y in tokens if y.isalpha()]
 
